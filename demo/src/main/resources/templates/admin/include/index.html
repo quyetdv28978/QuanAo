@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+<!--Header-->
+<div th:replace = "~{admin/include/header::header}"></div>
+    <!-- content -->
+        <div id="a" class="col-sm-2 bg-primary" th:fragment = "index">
+            <nav class="nav flex-column">
+                <a class="ms-3 nav-link active  text-warning" aria-current="page">Tổng quan</a>
+                <div class="nav-link">
+                    <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown2" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Sản phẩm
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/quan-tri/san-pham}">Danh sách sản phẩm</a></li>
+                        <li><a class="dropdown-item" th:href="@{/danh-muc}">Danh sách danh mục</a></li>
+                        <!-- <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                    </ul>
+                </div>
+<!--                <div class="nav-link">-->
+<!--                    <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown" role="button"-->
+<!--                       data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                        Đơn hàng-->
+<!--                    </a>-->
+<!--                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                        <li><a class="dropdown-item" href="#">Hóa đơn chờ</a></li>-->
+<!--                        <li><a class="dropdown-item" href="#">Tạo hóa đơn</a></li>-->
+<!--                        <li>-->
+<!--                            <hr class="dropdown-divider">-->
+<!--                        </li>-->
+<!--                        <li><a class="dropdown-item" href="#">Danh sách hóa đơn</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <a class="nav-link ms-3 text-warning" href="#">Khách hàng</a>-->
+<!--                <a class="nav-link ms-3 text-warning" href="#">Thống kê</a>-->
+                <a class="nav-link ms-3 text-warning" th:href="@{/home}" tabindex="-1" aria-disabled="true">Website</a>
+            </nav>
+        </div>
+
+</body>
+
+</html>

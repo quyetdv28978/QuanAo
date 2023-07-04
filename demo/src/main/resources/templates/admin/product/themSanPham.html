@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href = "@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <link th:href = "@{/css/themSP.css}" rel="stylesheet">
+</head>
+
+
+<body id="page-top" ng-app="themsp" ng-controller="them">
+<!--header-->
+<div th:insert = "~{admin/include/header::header}"></div>
+
+<div class="row">
+    <div th:replace = "~{admin/include/index :: index}"></div>
+<!--     Begin Page Content -->
+    <div class="col-sm-10">
+    <div class="container tm-mt-big tm-mb-big">
+        <div class="row">
+            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">Thêm sản phẩm</h2>
+                        </div>
+                    </div>
+
+                    <div class="row tm-edit-product-row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <form class="tm-edit-product-form" enctype="multipart/form-data">
+                                <div class="form-group mb-3">
+                                    <label for="name">Tên sản phẩm</label>
+
+                                    <input ng-model="product.tensanpham" type="text" class="validate form-control">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="name">Tiêu đề
+                                    </label>
+                                    <input id="nameTD" ng-model="product.tieude" type="text" class="validate form-control "
+                                      >
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">Mô tả</label>
+                                    <textarea ng-model="product.mota" class="form-control validate" rows="3" ></textarea>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label >Số lượng</label>
+                                    <input type="number" ng-model="product.soluong"
+                                           class="form-control idspT validate" rows="3" >
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label >Giá bán
+                                        </label>
+                                        <input  ng-model="product.giaban" type="number"
+                                            class="form-control idspT validate">
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label>Giá gốc
+                                        </label>
+                                        <input ng-model="product.giagoc" type="number"
+                                               class="form-control idspT validate"
+                                            >
+                                    </div>
+                                </div>
+
+                                <!-- Phiên bản -->
+                                <div class=" row">
+
+                                </div>
+                            <!-- TRANG THAI -->
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4 h-75">
+                            <div class="border h-50 w-100">
+                                <p class="ml-3 mt-3">Trạng thái</p>
+                                <div>
+                                    <input class="ml-3 mt-2" ng-checked="true" ng-model="product.trangthai" type="radio" name="quyet" value="Hiển thị">Hiển thị
+                                    <br>
+                                    <input class="ml-3 mt-2" ng-model="product.trangthai" type="radio" name="quyet" value="Ẩn"> Ẩn
+                                </div>
+                            </div>
+
+                            <!-- PHAN LOAI -->
+                            <div class="border h-100 w-100 mt-3">
+                                <p class="ml-3">Phân loại</p>
+                                <div class="ml-3">
+                                    <h6>Loại</h6>
+                                    <div class="mb-3 d-flex">
+<!--                                        <input type="text" ng-model="product.loaiSP" disabled value="Loại">-->
+                                        <select ng-model="loaiSP" ng-change="chonloaiSP(loaiSP)">
+                                            <option ng-repeat="loai1 in loais" value="{{loai1.id}}" >{{loai1.tenlsp}}</option>
+                                        </select>
+                                        <button href="" id="openBT" class="btn-primary">Thêm loai</button>
+                                    </div>
+
+                                    <div th:insert = "~{admin/product/loai::loai}"></div>
+
+
+                                    <h6>Nhà cung cấp</h6>
+                                    <div class="d-flex mb-4">
+                                        <input class="validate" type="text" name="quyet" ng-model="product.nhasanxuat" value="Nhà cung cấp">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  -->
+                        </div>
+
+    <div class="bg-success  mx-3 w-50 row" style="height: 240px;">
+                <div class="mt-1 col-lg-12 col-sm-12 col-md-12">
+               <div class="mt-3 mx-3  mb-2 float-left">
+                <input type="file" id="myFileInput" onchange="displaySelectedImage()" style="display: none">
+                <button class="btn btn-primary" onclick="document.getElementById('myFileInput').click()">Chọn
+                    ảnh</button>
+            </div>  </div>
+
+
+                <div class="col-lg-12 col-sm-12 col-md-12 row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 image2-container">
+                        <img class="img-fluid image2" id="selectedImage">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 image2-container">
+                        <img class="img-fluid image2" id="selectedImage2" >
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 image2-container">
+                        <img class="img-fluid image2" id="selectedImage3" >
+                        <input type="checkbox" class="checkbox">
+                    </div>
+
+    </div>
+
+</div>
+                        <div class="col-lg-12 col-sm-12 col-md-12 mt-3">
+                            <button type="button" ng-click="themspclick()" class="btn btn-primary btn-block text-uppercase">Thêm sản
+                                phẩm</button>
+                        </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+</div>
+
+
+<script th:src="@{/angular/angular.min.js}"></script>
+
+<script th:src="@{/angular/sanpham.js}"></script>
+
+<script th:src="@{/js/clickAnh.js}"></script>
+
+<script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

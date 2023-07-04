@@ -1,0 +1,15 @@
+
+<dialog id="myDialog" th:fragment = "loai">
+    <form >
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Loại sản phẩm</label>
+            <input type="text" class="form-control" ng-model="loai.tenlsp" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <!--            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" >Hoạt động</label>
+            <input type="checkbox" ng-model="loai.trangthai" id="exampleInputPassword1">
+        </div>
+
+        <button type="button" ng-click = "themloai()"  class="btn btn-primary">Thêm</button>
+    </form></dialog>

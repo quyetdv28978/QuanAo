@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href = "@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body ng-app="themsp" ng-controller="sanpham">
+<!--header-->
+<div th:insert = "~{admin/include/header::header}"></div>
+
+<div  class="row">
+    <div  th:replace = "~{admin/include/index :: index}"></div>
+
+
+    <div class="col-sm-10">
+        <div class="container-fluid">
+
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <a class="btn btn-success float-right px-3" th:href="@{/quan-tri/them-san-pham}">Thêm sản phẩm</a>
+                        <!--                                <button class="btn btn-success float-right" href="product.html">Thêm sản phẩm</button>-->
+
+                        <h4 class="card-title">Danh sách sản phẩm</h4>
+
+                        Tìm kiếm: <input type="text" class="border-0 border-bottom" placeholder="Nhập tên sản phẩm">
+                        <select>
+                            <option value="null"></option>
+                            <option value="value1">quyet</option>
+                            <option value="value2">do</option>
+                            <option value="value3">van</option>
+
+                        </select>
+                        </p>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Gia</th>
+                                <th>Loại</th>
+                                <th>Nhà cũng cấp</th>
+                                <th>Thao tác</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-class="{'bg-primary': clas}" ng-repeat="product in products" ng-click="selectSP(product.id)">
+                                <td class="mx-5">
+                                    {{product.tensanpham}}</td>
+                                <td class="text-danger"> {{product.soluong}} <i class="mdi mdi-arrow-down"></i></td>
+                                <td class="text-danger"> {{product.giaban}} <i class="mdi mdi-arrow-down"></i></td>
+
+                                <td><label >{{product.loaisanphamviewmodel.tenlsp}}</label></td>
+                                <td><label >{{product.nhasanxuat}}</label></td>
+                                <td><a th:href="@{/quan-tri/sua-san-pham?id={{product.id}}}"  class="btn btn-success">Sua</a>
+                                    <button href="" class="btn btn-success" ng-click = "xoa(product.id)">Xoa</button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script th:src="@{/angular/sanpham.js}"></script>
+</body>
+</html>
