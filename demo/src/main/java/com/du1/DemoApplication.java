@@ -1,19 +1,32 @@
 package com.du1;
 
-import com.du1.model.entity.users;
-import com.du1.respon.jpaVaiTro;
-import com.du1.services.serviceSer;
+//import com.du1.services.serviceSer;
+import com.du1.testConfi.configuration1;
+import com.du1.testConfi.student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.ApplicationContext;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.du1.testConfi")
 public class DemoApplication {
+//    @Autowired
+//    @Qualifier("quyet2")
+//    private static student studen;
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+      ApplicationContext context =  SpringApplication.run(DemoApplication.class, args);
+      student s = context.getBean("quyet2",student.class);
+//        System.out.println(s.getStu());
+        student a = context.getBean("quye1",student.class);
+        System.out.println(s);
+        System.out.println(a);
+//        student a = context.getBean(student.class);
+//        System.out.println(studen);
+//        System.out.println(@Qualifier("quyet2") a);
+//        student a = context.getBean(configuration1.class);
     }
 
 //    @Autowired

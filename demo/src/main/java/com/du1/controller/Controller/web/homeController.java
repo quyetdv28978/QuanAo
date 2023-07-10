@@ -1,11 +1,9 @@
 package com.du1.controller.Controller.web;
 
 import com.du1.model.entity.users;
-import com.du1.model.viewModel.userDetail;
 import com.du1.model.viewModel.userModel;
 import com.du1.respon.JpaUsers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
