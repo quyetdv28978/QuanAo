@@ -1,6 +1,9 @@
 package com.du1.controller.Controller.web;
 
+import com.du1.model.viewModel.userDetail;
+import com.du1.model.viewModel.userModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +18,7 @@ public class shoppingCartController {
 
     @GetMapping("shoping-cart")
     public String cart(Model model){
-        System.out.println(httpSession.getAttribute("userSS"));
-        model.addAttribute("users",httpSession.getAttribute("userSS"));
+        model.addAttribute("users", usersController.userDetail);
         return "web/shoping-cart.html";
     }
 }

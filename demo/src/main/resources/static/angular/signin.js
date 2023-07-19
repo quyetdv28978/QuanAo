@@ -7,8 +7,11 @@ let app = angular.module("nguyen",[])
     $scope.signIn = function(){
         console.log("quyet click")
         console.log($scope.user)
-        $http.get("http://localhost:6969/api/users1/" + $scope.user.tk).then(
-            window.alert("Dang nhap thanh cong")
+        $http.post("http://localhost:6969/api/loginJWT", $scope.user).then(
+            function (item){
+                window.alert("Dang nhap thanh cong")
+                console.log(item)
+            }
         )
 }
 })

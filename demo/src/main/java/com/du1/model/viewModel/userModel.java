@@ -1,15 +1,17 @@
 package com.du1.model.viewModel;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class userModel {
-    private String tk, mk;
+    private String tk, mk, jwt;
     private Boolean check;
+    private Collection<? extends GrantedAuthority> role;
 }

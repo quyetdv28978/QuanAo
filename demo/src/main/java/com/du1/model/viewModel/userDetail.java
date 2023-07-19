@@ -2,6 +2,8 @@ package com.du1.model.viewModel;
 import com.du1.model.entity.users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +13,10 @@ import java.util.Collections;
 
 
 @AllArgsConstructor
+@Getter
+@ToString
 public class userDetail implements UserDetails{
+//    @ToString.Exclude
     private users users;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -23,13 +28,11 @@ public class userDetail implements UserDetails{
 
     @Override
     public String getPassword() {
-        System.out.println(users.getMk() + " day la mk cua getPasswoek");
         return users.getMk();
     }
 
     @Override
     public String getUsername() {
-        System.out.println(users.getTk() + " day la mk cua getTK");
 
         return users.getTk();
     }

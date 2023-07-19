@@ -1,18 +1,20 @@
 package com.du1.controller.Controller.web;
 
 import com.du1.model.entity.users;
+import com.du1.model.viewModel.userDetail;
 import com.du1.model.viewModel.userModel;
 import com.du1.respon.JpaUsers;
+import com.du1.sercurity.JwtTokenProvider;
 import com.du1.services.serviceSer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +24,19 @@ import java.security.Principal;
 
 @Controller
 public class usersController {
+    public static userDetail userDetail;
+
     @Autowired
     public serviceSer jpa2;
 
     @Autowired
-    public HttpSession session;
+    private serviceSer serUser;
 
     @Autowired
-    private JpaUsers jpaUsers;
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/signup")
 
@@ -37,68 +44,36 @@ public class usersController {
     }
 
     @GetMapping("/signin")
-    public String signIn(Model model,
-                         HttpServletResponse response, HttpServletRequest resquest
-    , Principal principal
+    public String signIn(Model model
     ){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println("Day la authentication: " + authentication.getPrincipal());
-
-//        System.out.println(model.getAttribute("user"));
-        System.out.println("la sao la sao");
-        System.out.println(((users)(Authentication)principal) + " hmmmm");
-
-        boolean check = true;
-        if ( session.getAttribute("userSS") != null){
-            for (Cookie a:resquest.getCookies()
-                 ) {
-                if (jpa2.finbyTK(a.getName()) != null){
-                    System.out.println("check");
-                    model.addAttribute("user", new userModel(a.getName(), a.getValue(), true));
-                    check = false;
-                    break;
-                }
-            }
-            if (check == true){
-                model.addAttribute("user", new userModel());
-            }
-        }
-        else {
-            model.addAttribute("user", new userModel());
-        }
+        model.addAttribute("user", new userModel());
         return "admin/acccount/signin.html";
     }
 
+    @PostMapping("/signin")
+    public String signIN(Model model,@ModelAttribute userModel loginRequest){
+        System.out.println(loginRequest.getTk());
+        String vaitro = serUser.finbyTK(loginRequest.getTk()).getVaitro().getTenchucvu();
+        // Xác thực thông tin người dùng Request lên
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getTk(),
+                        loginRequest.getMk()
+                )
+        );
 
-    @GetMapping("signinv2")
-    public String home(Model model, Principal principal){
-        String name = ((Authentication)principal).getName();
-        System.out.println(((Authentication)principal).getName() + " hmmmm");
-
-        if (name != null)   {
-            System.out.println("aaaaaaaaaaaaaaaaaaaaa");
-            users user = jpaUsers.findByTk(name);
-            session.setAttribute("userSS", user);
-            session.setMaxInactiveInterval(60*60);
-//            if (users.getCheck() == true){
-//                response.addCookie(new Cookie(user.getTk(), user.getMk()));
-//            }
-            if (user.getVaitro().getId() == 1){
-                return "redirect:/home";
-            }
-            else if (user.getVaitro().getId() == 2){
-                return "redirect:/quan-tri/san-pham";
-            }
+        // Nếu không xảy ra exception tức là thông tin hợp lệ
+        // Set thông tin authentication vào Security Context
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // Trả về jwt cho người dùng.
+        userDetail = (com.du1.model.viewModel.userDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String jwt = jwtTokenProvider.generateToken(userDetail);
+        System.out.println(userDetail);
+        System.out.println(" cua loginJWT");
+        model.addAttribute("users", userModel.builder().tk(loginRequest.getTk()).jwt(jwt).role(userDetail.getAuthorities()).build());
+        if (vaitro.equalsIgnoreCase("chu")){
+            return "/quan-tri/san-pham";
         }
-        else{
-            model.addAttribute("user", new userModel());
-        }
-        return "admin/acccount/signin.html";
-
-//        model.addAttribute("users", session.getAttribute("userSS"));
-//        httpSession.setAttribute("userSS", );
-//        return "web/index.html";
+        return "redirect:/home";
     }
-
-
 }
