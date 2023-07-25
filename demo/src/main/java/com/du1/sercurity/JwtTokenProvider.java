@@ -25,7 +25,8 @@ public class JwtTokenProvider {
 
 //    private Long l;
 
-    public String generateToken(userDetail userDetails) {
+    public String generateToken(userDetail userDetails, String role) {
+        System.out.println("ROle------------------- " +role);
         // Lấy thông tin user
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
@@ -33,6 +34,7 @@ public class JwtTokenProvider {
 //        l.toString();
         String jwt = Jwts.builder()
                 .setSubject(Integer.toString(userDetails.getUsers().getId()))
+//                .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)

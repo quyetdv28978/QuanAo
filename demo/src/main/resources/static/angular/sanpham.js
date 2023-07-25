@@ -6,14 +6,14 @@ document.getElementById("a").style.height = window.innerHeight + "px";
 
 // Hien thi san pham
 a.controller("sanpham", function ($scope, $http){
-    $http.get("http://localhost:6969/api/sanpham").then(function (item){
+    $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item){
         console.log(item.data)
         $scope.products = item.data;
     })
 
     $scope.xoa = function (id){
         console.log(id)
-$http.delete("http://localhost:6969/api/sanpham/"+id).then(
+$http.delete("http://localhost:6969/demov1/api/sanpham/"+id).then(
     location.reload()
 )
     }
@@ -53,7 +53,7 @@ a.controller("them", function ($scope, $http){
                     nameIMG.forEach(item => formdata.append("image", item));
                     formdata.append("sanpham", new Blob([JSON.stringify($scope.product)], {type: 'application/json'}))
 
-                    $http.post("http://localhost:6969/api/sanpham", formdata,
+                    $http.post("http://localhost:6969/demov1/api/sanpham", formdata,
                         {headers: {'Content-Type': undefined}}
                     ).then(function (item) {
                         swal("Thông báo", "Them thanh cong", "success");
@@ -71,11 +71,11 @@ a.controller("them", function ($scope, $http){
     $scope.themloai = function (){
         console.log($scope.product)
         $scope.loai.trangthai =  $scope.loai.trangthai == true ? 1 : 0;
-        $http.post("http://localhost:6969/api/loaisanpham", $scope.loai).then(
+        $http.post("http://localhost:6969/demov1/api/loaisanpham", $scope.loai).then(
             function (){
                 alert("Them thanh cong")
                 dialog.close();
-                $http.get("http://localhost:6969/api/loaisanpham").then(
+                $http.get("http://localhost:6969/demov1/api/loaisanpham").then(
                     function (item){
                         $scope.loais = item.data
                     }
@@ -87,11 +87,11 @@ a.controller("them", function ($scope, $http){
     }
 
 //     Get DS loai san pham
-$http.get("http://localhost:6969/api/loaisanpham").then(function (item){
+$http.get("http://localhost:6969/demov1/api/loaisanpham").then(function (item){
     $scope.loais = item.data
 })
 
-    $http.get("http://localhost:6969/api/danhmuc").then(function (item){
+    $http.get("http://localhost:6969/demov1/api/danhmuc").then(function (item){
         console.log(item.data)
         $scope.danhmucss = item.data
     })
@@ -103,7 +103,7 @@ a.controller("suasp", function ($scope, $http){
 //     Hien thi san pham cho de sua
 
     var idAnh = [];
-$http.get('http://localhost:6969/api/sanpham/' + idSP.value).then(function (a){
+$http.get('http://localhost:6969/demov1/api/sanpham/' + idSP.value).then(function (a){
     $scope.selectD = a.data.loaisanphamviewmodel.id;
     console.log($scope.selectD)
     a.data.images.forEach(item => idAnh.push(item.substring(0,item.indexOf("h"))))
@@ -177,7 +177,7 @@ $http.get('http://localhost:6969/api/sanpham/' + idSP.value).then(function (a){
                     $scope.product.images = imagesID;
                     $scope.product.idlsp = $scope.lsp;
                     formdata.append("sanpham", new Blob([JSON.stringify($scope.product)], {type: 'application/json'}))
-                    $http.put("http://localhost:6969/api/sanpham/" + idSP.value, formdata,
+                    $http.put("http://localhost:6969/demov1/api/sanpham/" + idSP.value, formdata,
                         {headers: {'Content-Type': undefined}}
                     ).then(function (item) {
                         swal("Thông báo", "Sua thanh cong", "success");
@@ -194,7 +194,7 @@ $http.get('http://localhost:6969/api/sanpham/' + idSP.value).then(function (a){
     $scope.themloai = function (){
         console.log($scope.product)
         $scope.loai.trangthai =  $scope.loai.trangthai == true ? 1 : 0;
-        $http.post("http://localhost:6969/api/loaisanpham", $scope.loai).then(
+        $http.post("http://localhost:6969/demov1/api/loaisanpham", $scope.loai).then(
             function (){
                 alert("Them thanh cong")
                 // $scope.product.loaiSP = $scope.loai.tenlsp
@@ -204,7 +204,7 @@ $http.get('http://localhost:6969/api/sanpham/' + idSP.value).then(function (a){
     }
 
 //     Get DS loai san pham
-    $http.get("http://localhost:6969/api/loaisanpham").then(function (item){
+    $http.get("http://localhost:6969/demov1/api/loaisanpham").then(function (item){
         $scope.loais = item.data
     })
 

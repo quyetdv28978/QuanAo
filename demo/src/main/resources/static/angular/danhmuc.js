@@ -5,7 +5,7 @@ document.getElementById("a").style.height = window.innerHeight + "px";
 // Trang danh muc
 b.controller("danhmuc", function ($http, $scope){
     console.log('hahaha')
-    $http.get("http://localhost:6969/api/danhmuc").then(function (item){
+    $http.get("http://localhost:6969/demov1/api/danhmuc").then(function (item){
        $scope.danhmucs = item.data;
         console.log(item.data)
        $scope.danhmucs.forEach(i => {
@@ -18,7 +18,7 @@ b.controller("danhmuc", function ($http, $scope){
 
     $scope.xoa = function (item){
         console.log(item)
-        $http.delete("http://localhost:6969/api/danhmuc/"+item).then(
+        $http.delete("http://localhost:6969/demov1/api/danhmuc/"+item).then(
             location.reload()
         )
     }
@@ -28,7 +28,7 @@ b.controller("danhmuc", function ($http, $scope){
 b.controller("dovan", function ($scope, $http, $rootScope){
     console.log("danh muc")
     // Loai san pham
-    $http.get("http://localhost:6969/api/loaisanpham").then(function (item){
+    $http.get("http://localhost:6969/demov1/api/loaisanpham").then(function (item){
         $scope.danhmucs = item.data;
     })
 
@@ -64,7 +64,7 @@ $scope.selectSP = function (id){
 }
 
 //     San pham
-    $http.get("http://localhost:6969/api/sanpham").then(function (item){
+    $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item){
         console.log(item.data)
         $scope.products = item.data;
     })
@@ -78,7 +78,7 @@ $scope.selectSP = function (id){
         $scope.danhmuc.idSP = sanphamChon;
         $scope.danhmuc.trangthai = $scope.danhmuc.trangthai == 'Ẩn' ? 0 : 1
         console.log($scope.danhmuc)
-        $http.post("http://localhost:6969/api/danhmuc", $scope.danhmuc).then(function (item){
+        $http.post("http://localhost:6969/demov1/api/danhmuc", $scope.danhmuc).then(function (item){
             swal("Thông báo", "Thêm danh mục thành công", "success");
             location.reload();
         })
@@ -95,21 +95,21 @@ b.controller("suadm", function ($scope, $http, $rootScope, $location){
     var iddm = document.getElementById("iddm");
     console.log(iddm.value)
     var IDSD = [];
-    $http.get("http://localhost:6969/api/danhmuc/" + iddm.value).then(function (item) {
+    $http.get("http://localhost:6969/demov1/api/danhmuc/" + iddm.value).then(function (item) {
         IDSP = item.data.listSanPham;
         sanphamChon.splice(0,sanphamChon.length)
         $scope.products = item.data.listSanPham;
     })
     // Hien thi san pham
 
-    $http.get("http://localhost:6969/api/danhmuc/" + iddm.value).then(function (item){
+    $http.get("http://localhost:6969/demov1/api/danhmuc/" + iddm.value).then(function (item){
         $scope.danhmuc = item.data;
         console.log(item)
     })
 
 
     // Chon sp theo loai san pham
-    $http.get("http://localhost:6969/api/loaisanpham").then(function (data){
+    $http.get("http://localhost:6969/demov1/api/loaisanpham").then(function (data){
         $scope.danhmucs = data.data;
         console.log(data.data)
     })
@@ -149,14 +149,14 @@ b.controller("suadm", function ($scope, $http, $rootScope, $location){
     $scope.selectChange = function (){
         let select = $scope.select;
         if (select == "spdm") {
-            $http.get("http://localhost:6969/api/danhmuc/" + iddm.value).then(function (item) {
+            $http.get("http://localhost:6969/demov1/api/danhmuc/" + iddm.value).then(function (item) {
                 IDSP = item.data.listSanPham;
                 sanphamChon.splice(0,sanphamChon.length)
                 $scope.products = item.data.listSanPham;
             })
         }
             else if (select == "allsp"){
-            $http.get("http://localhost:6969/api/sanpham").then(function (item){
+            $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item){
                 console.log(IDSP)
                 var sps = [];
                 sanphamChon.splice(0,sanphamChon.length)
@@ -199,7 +199,7 @@ b.controller("suadm", function ($scope, $http, $rootScope, $location){
             }
         })
 
-        $http.put("http://localhost:6969/api/danhmuc/"+iddm.value, sanphamChon)
+        $http.put("http://localhost:6969/demov1/api/danhmuc/"+iddm.value, sanphamChon)
     }
 
     //     THem danh muc
@@ -207,7 +207,7 @@ b.controller("suadm", function ($scope, $http, $rootScope, $location){
         console.log(sanphamChon)
         $scope.danhmuc.idSP = sanphamChon;
         $scope.danhmuc.trangthai = $scope.danhmuc.trangthai == 'Ẩn' ? 0 : 1
-        $http.put("http://localhost:6969/api/danhmuc2/" + iddm.value, $scope.danhmuc).then(function (item){
+        $http.put("http://localhost:6969/demov1/api/danhmuc2/" + iddm.value, $scope.danhmuc).then(function (item){
             swal("Thông báo", "Sua thanh cong", "success");
             location.reload()
         })

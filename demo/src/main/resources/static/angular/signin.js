@@ -7,7 +7,7 @@ let app = angular.module("nguyen",[])
     $scope.signIn = function(){
         console.log("quyet click")
         console.log($scope.user)
-        $http.post("http://localhost:6969/api/loginJWT", $scope.user).then(
+        $http.post("http://localhost:6969/demov1/api/loginJWT", $scope.user).then(
             function (item){
                 window.alert("Dang nhap thanh cong")
                 console.log(item)

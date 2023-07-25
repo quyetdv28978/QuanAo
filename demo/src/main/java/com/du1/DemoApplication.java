@@ -16,12 +16,6 @@ public class DemoApplication extends SpringBootServletInitializer {
       ApplicationContext context =  SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(DemoApplication.class);
-
-    }
-
     //    @Autowired
 //    serviceSer userRepository;
 //    @Autowired

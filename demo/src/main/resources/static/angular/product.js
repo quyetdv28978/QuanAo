@@ -4,7 +4,7 @@ app.controller("sp", function ($scope, $http){
     var diablog = document.querySelector('#myDialog');
     var diablog2 = document.querySelector('#dialog2');
     console.log("product")
-    $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+    $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
         $scope.products = item.data;
     })
 
@@ -46,7 +46,7 @@ app.controller("sp", function ($scope, $http){
 
     $scope.man = function (){
         console.log("man")
-        $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+        $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
             $scope.products = item.data.filter(function (item){
 
                 return item.tensanpham == "ao dui"
@@ -56,7 +56,7 @@ app.controller("sp", function ($scope, $http){
 
     $scope.women = function (){
         console.log("women")
-        $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+        $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
             $scope.products = item.data.filter(function (item){
 
                 return item.tensanpham == "hehe"
@@ -66,7 +66,7 @@ app.controller("sp", function ($scope, $http){
 
     $scope.all = function (){
         console.log("all")
-        $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+        $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
             $scope.products = item.data;
         })
     }
@@ -75,12 +75,12 @@ app.controller("sp", function ($scope, $http){
         console.log(item.keyCode)
         console.log($scope.tenSP)
         if ($scope.tenSP.length == 0) {
-            $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+            $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
                 $scope.products = item.data
             })
         } else {
             if (item.keyCode == 13) {
-                $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+                $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
                     $scope.products = item.data.filter(function (i) {
                         console.log(i.tensanpham)
                         console.log(item)

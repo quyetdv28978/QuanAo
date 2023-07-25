@@ -6,9 +6,9 @@ import com.du1.model.viewModel.LoaiSanPhamViewModel;
 import com.du1.model.viewModel.productViewModel;
 import com.du1.services.ImagesSer;
 import com.du1.services.LoaiSanPhamSer;
-import com.du1.services.quantriSer;
-import com.sun.source.tree.TryTree;
+import com.du1.services.SanPhamSer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,15 +20,15 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("api/")
 public class SanPhamControllerApi {
     private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources");
 
     @Autowired
-    private quantriSer quantriSer;
+    private SanPhamSer quantriSer;
 
     @Autowired
     private ImagesSer imagesSer;
@@ -36,15 +36,17 @@ public class SanPhamControllerApi {
     @Autowired
     private LoaiSanPhamSer loaiSanPhamSer;
 
-    @GetMapping("api/sanpham")
+    @GetMapping("sanpham")
+    @PreAuthorize("hasRole('ADMIN')")
     public List getSP(){
         return quantriSer.getAll();
     }
 
-    @GetMapping("api/sanpham/{id}")
+    @GetMapping("sanpham/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public productViewModel getSPbyID(@PathVariable("id") Integer id){
         System.out.println("get id : " + id);
-        String path ="http://localhost:6969/imagePath/";
+        String path ="http://localhost:6969/demov1/imagePath/";
         Set<String> imaga = new HashSet<>();
        if (quantriSer.findbyID(id).isPresent()){
           SanPham s =  quantriSer.findbyID(id).get();
@@ -64,7 +66,8 @@ public class SanPhamControllerApi {
        else return null;
     }
 
-    @PostMapping("api/sanpham")
+    @PostMapping("sanpham")
+    @PreAuthorize("hasRole('ADMIN')")
     public String create(@RequestPart("image") MultipartFile[] image, @RequestPart productViewModel sanpham) {
         Set<String> images = new HashSet<>();
         for (MultipartFile i : image) {
@@ -81,7 +84,8 @@ public class SanPhamControllerApi {
         return null;
     }
 
-    @PutMapping ("api/sanpham/{id}")
+    @PutMapping ("sanpham/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String Update(@RequestPart(value = "image", required = false) MultipartFile[] image,
                          @RequestPart productViewModel sanpham,
                          @PathVariable("id") int id
@@ -129,21 +133,31 @@ public class SanPhamControllerApi {
         }
 
 
-        @PostMapping("api/loaisanpham")
+        @PostMapping("loaisanpham")
+        @PreAuthorize("hasRole('ADMIN')")
 public String themLoaiSanPham(@RequestBody loaisanpham loaisanpham){
         loaiSanPhamSer.add(loaisanpham);
 return null;
 }
 
-    @GetMapping("api/loaisanpham")
+    @GetMapping("loaisanpham")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<loaisanpham> getALL(){
 //        loaiSanPhamSer.add(loaisanpham);
         return loaiSanPhamSer.getAll();
     }
 
-    @DeleteMapping("api/sanpham/{id}")
+    @DeleteMapping("sanpham/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void xoa(@PathVariable Integer id){
          quantriSer.delete(id);
+    }
+
+    @GetMapping("/pageable")
+    public void pageAble(@RequestParam(required = false, defaultValue = "0") Integer page){
+        System.out.println(page + " page");
+        quantriSer.pageAble(page).forEach(System.out::println);
+//       return quantriSer.pageAble();
     }
 
 }

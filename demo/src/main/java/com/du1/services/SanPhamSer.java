@@ -2,19 +2,18 @@ package com.du1.services;
 
 import com.du1.model.entity.Images;
 import com.du1.model.entity.SanPham;
-import com.du1.model.entity.loaisanpham;
 import com.du1.model.viewModel.LoaiSanPhamViewModel;
 import com.du1.model.viewModel.productViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
-public class quantriSer implements ServiceIF<productViewModel> {
+public class SanPhamSer implements ServiceIF<productViewModel> {
     @Autowired
     private com.du1.respon.jpaSanPham jpaSanPham;
 
@@ -31,7 +30,7 @@ public class quantriSer implements ServiceIF<productViewModel> {
         List<SanPham> listSP = jpaSanPham.findAll();
         List<productViewModel> listProductView = new ArrayList<>();
 
-        String path ="http://localhost:6969/imagePath/";
+        String path ="http://localhost:6969/demov1/imagePath/";
 
 
         listSP.forEach((item) -> {
@@ -104,4 +103,10 @@ jpaSanPham.save(s);
         System.out.println("Option: " + jpaSanPham.findById(Integer.valueOf(id)));
         return jpaSanPham.findById(id);
     }
+
+    public List pageAble(int trang){
+        Page<SanPham> page = jpaSanPham.findAll(PageRequest.of(trang, 4));
+        return page.stream().toList();
+    }
+
 }

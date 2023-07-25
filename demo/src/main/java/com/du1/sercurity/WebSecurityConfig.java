@@ -6,10 +6,12 @@ import com.du1.respon.JpaUsers;
 import com.du1.services.SpringSecuritySer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,8 +21,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Configuration
 @EnableWebSecurity
-
+//@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(
+        // securedEnabled = true,
+        // jsr250Enabled = true,
+        prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
@@ -76,19 +83,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/quan-tri/san-pham", "/quan-tri/them-san-pham",
                         "/quan-tri/sua-san-pham", "/danh-muc", "/danh-muc/them-danh-muc",
-                        "/danh-muc/sua-danh-muc").hasRole("ADMIN")
+                        "/danh-muc/sua-danh-muc").permitAll()
                 .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginProcessingUrl("/signinv2")
-//                .loginPage("/signin")
-//                .usernameParameter("tk")
-//                .passwordParameter("mk")
-//                .defaultSuccessUrl("/signinv2")
-//                // Cho phép người dùng xác thực bằng form login
-//                .permitAll() // Tất cả đều được truy cập vào địa chỉ này
-//                .and()
-//                .logout().permitAll()
                 .and().exceptionHandling().authenticationEntryPoint(restServicesEntryPoint()).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

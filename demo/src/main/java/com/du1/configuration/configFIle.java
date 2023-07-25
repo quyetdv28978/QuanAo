@@ -37,4 +37,6 @@ public class configFIle implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/imagePath/")
                 .setCacheControl(CacheControl.noCache().mustRevalidate());
     }
+
+
 }

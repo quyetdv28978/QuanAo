@@ -16,7 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @RestController
+@RequestMapping("api/")
 public class controllerUsers {
 
     @Autowired
@@ -37,13 +40,13 @@ public class controllerUsers {
 //    @Autowired
 //    public PasswordEncoder passwordEncoder;
 
-    @PostMapping("/api/users2")
+    @PostMapping("users2")
     public int getAll(@RequestBody users users) {
         users.setVaitro(vaiTro.getById(2));
         return jpa2.add(users);
     }
 
-    @PostMapping("/api/loginJWT")
+    @PostMapping("loginJWT")
     public ResponseEntity authenticateUser(@RequestBody userModel loginRequest) {
         String vaitro = serUser.finbyTK(loginRequest.getTk()).getVaitro().getTenchucvu();
         // Xác thực thông tin người dùng Request lên
@@ -59,13 +62,13 @@ public class controllerUsers {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // Trả về jwt cho người dùng.
         userDetail userDetail = (com.du1.model.viewModel.userDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String jwt = jwtTokenProvider.generateToken(userDetail);
+        String jwt = jwtTokenProvider.generateToken(userDetail, userDetail.getAuthorities().stream().collect(Collectors.toList()).get(0).toString());
         System.out.println(userDetail);
         System.out.println(" cua loginJWT");
         return ResponseEntity.ok().body(userModel.builder().tk(loginRequest.getTk()).jwt(jwt).role(userDetail.getAuthorities()).build());
     }
 
-    @PostMapping("/api/loginJWT2")
+    @PostMapping("loginJWT2")
     public ResponseEntity authenticateUser2(@RequestBody userModel loginRequest) {
         return ResponseEntity.ok().body(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }

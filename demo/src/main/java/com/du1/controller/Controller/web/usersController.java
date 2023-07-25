@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @Controller
 public class usersController {
@@ -52,7 +53,7 @@ public class usersController {
 
     @PostMapping("/signin")
     public String signIN(Model model,@ModelAttribute userModel loginRequest){
-        System.out.println(loginRequest.getTk());
+//        System.out.println(loginRequest.getTk());
         String vaitro = serUser.finbyTK(loginRequest.getTk()).getVaitro().getTenchucvu();
         // Xác thực thông tin người dùng Request lên
         Authentication authentication = authenticationManager.authenticate(
@@ -67,12 +68,12 @@ public class usersController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // Trả về jwt cho người dùng.
         userDetail = (com.du1.model.viewModel.userDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String jwt = jwtTokenProvider.generateToken(userDetail);
+        String jwt = jwtTokenProvider.generateToken(userDetail, userDetail.getAuthorities().stream().collect(Collectors.toList()).get(0).toString());
         System.out.println(userDetail);
         System.out.println(" cua loginJWT");
         model.addAttribute("users", userModel.builder().tk(loginRequest.getTk()).jwt(jwt).role(userDetail.getAuthorities()).build());
         if (vaitro.equalsIgnoreCase("chu")){
-            return "/quan-tri/san-pham";
+            return "redirect:/quan-tri/san-pham";
         }
         return "redirect:/home";
     }

@@ -5,7 +5,7 @@ app.controller("dovan", function ($scope,$http, $locale){
 
     $scope.signUp = function (){
         console.log("hoi met nha")
-    $http.post("http://localhost:6969/api/users2", $scope.user).then(function (item){
+    $http.post("http://localhost:6969/demov1/api/users2", $scope.user).then(function (item){
         console.log($scope.user)
         swal("Thông báo","Dang ky thanh cong", "success");
         

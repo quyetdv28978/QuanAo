@@ -4,7 +4,7 @@ var productCart = [];
 app.controller("cart", function ($scope, $http) {
     console.log(sessionStorage)
     var tong = 0;
-    $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+    $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
         for (let i = 0; i < sessionStorage.length; i++) {
             let key = sessionStorage.key(i);
             let value = sessionStorage.getItem(key);

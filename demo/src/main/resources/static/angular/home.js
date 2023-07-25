@@ -6,7 +6,7 @@ app.controller("ie", function ($scope, $http) {
     var diablog = document.querySelector('#myDialog');
     var diablog2 = document.querySelector('#dialog2');
     diablog2.style.width = 50%
-    $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+    $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
         $scope.quickview = function (item) {
             if (document.getElementById("userid").value.length != 0) {
                 // $scope.sanpham.sl = 1;
@@ -57,7 +57,7 @@ app.controller("ie", function ($scope, $http) {
 
     $scope.man = function (){
         console.log("man")
-        $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+        $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
             $scope.products = item.data.filter(function (item){
 
                 return item.tensanpham == "ao dui"
@@ -67,7 +67,7 @@ app.controller("ie", function ($scope, $http) {
 
     $scope.women = function (){
         console.log("women")
-        $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+        $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
             $scope.products = item.data.filter(function (item){
 
                 return item.tensanpham == "hehe"
@@ -77,7 +77,7 @@ app.controller("ie", function ($scope, $http) {
 
     $scope.all = function (){
         console.log("all")
-        $http.get("http://localhost:6969/api/sanpham").then(function (item) {
+        $http.get("http://localhost:6969/demov1/api/sanpham").then(function (item) {
             $scope.products = item.data;
         })
     }
