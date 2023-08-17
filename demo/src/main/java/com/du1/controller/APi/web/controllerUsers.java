@@ -63,8 +63,6 @@ public class controllerUsers {
         // Trả về jwt cho người dùng.
         userDetail userDetail = (com.du1.model.viewModel.userDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String jwt = jwtTokenProvider.generateToken(userDetail, userDetail.getAuthorities().stream().collect(Collectors.toList()).get(0).toString());
-        System.out.println(userDetail);
-        System.out.println(" cua loginJWT");
         return ResponseEntity.ok().body(userModel.builder().tk(loginRequest.getTk()).jwt(jwt).role(userDetail.getAuthorities()).build());
     }
 

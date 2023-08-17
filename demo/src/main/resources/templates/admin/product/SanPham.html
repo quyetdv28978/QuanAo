@@ -6,34 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link th:href = "@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet">
 </head>
 <body ng-app="themsp" ng-controller="sanpham">
+
 <!--header-->
-<div th:insert = "~{admin/include/header::header}"></div>
+<div th:insert="~{admin/include/header::header}"></div>
 
-<div  class="row">
-    <div  th:replace = "~{admin/include/index :: index}"></div>
+<div class="row">
+    <div th:replace="~{admin/include/index :: index}"></div>
 
-
-    <div class="col-sm-10">
+    <div class="col-sm-10 col-md-10 col-lg-10">
         <div class="container-fluid">
 
-            <div class="col-lg-12 grid-margin stretch-card">
+            <div class="col-lg-12 col-md-12 col-sm-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <a class="btn btn-success float-right px-3" th:href="@{/quan-tri/them-san-pham}">Thêm sản phẩm</a>
-                        <!--                                <button class="btn btn-success float-right" href="product.html">Thêm sản phẩm</button>-->
+                        <a class="btn btn-success float-right px-3" th:href="@{/quan-tri/them-san-pham}">Thêm sản
+                            phẩm</a>
 
                         <h4 class="card-title">Danh sách sản phẩm</h4>
 
-                        Tìm kiếm: <input type="text" class="border-0 border-bottom" placeholder="Nhập tên sản phẩm">
-                        <select>
-                            <option value="null"></option>
-                            <option value="value1">quyet</option>
-                            <option value="value2">do</option>
-                            <option value="value3">van</option>
-
+                        Tìm kiếm: <input type="text" ng-model="tkbyten.tensanpham" class="border-0 border-bottom"
+                                         placeholder="Nhập tên sản phẩm">
+                        <select ng-model="loaiSP" ng-change="loaiSPChange(loaiSP)">
+                            <option ng-repeat="loai1 in loais2" value="{{loai1.id}}">
+                                {{loai1.tenlsp}}
+                            </option>
                         </select>
                         </p>
 
@@ -50,16 +49,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-class="{'bg-primary': clas}" ng-repeat="product in products" ng-click="selectSP(product.id)">
+                            <tr ng-class="{'bg-primary': clas}" ng-repeat="product in products | filter:tkbyten"
+                                ng-click="selectSP(product.id)">
                                 <td class="mx-5">
-                                    {{product.tensanpham}}</td>
+                                    {{product.tensanpham}}
+                                </td>
                                 <td class="text-danger"> {{product.soluong}} <i class="mdi mdi-arrow-down"></i></td>
                                 <td class="text-danger"> {{product.giaban}} <i class="mdi mdi-arrow-down"></i></td>
 
-                                <td><label >{{product.loaisanphamviewmodel.tenlsp}}</label></td>
-                                <td><label >{{product.nhasanxuat}}</label></td>
-                                <td><a th:href="@{/quan-tri/sua-san-pham?id={{product.id}}}"  class="btn btn-success">Sua</a>
-                                    <button href="" class="btn btn-success" ng-click = "xoa(product.id)">Xoa</button>
+                                <td><label>{{product.loaisanphamviewmodel.tenlsp}}</label></td>
+                                <td><label>{{product.nhasanxuat}}</label></td>
+                                <td><a th:href="@{/quan-tri/sua-san-pham?id={{product.id}}}"
+                                       class="btn btn-success">Sua</a>
+                                    <button href="" class="btn btn-success" ng-click="xoa(product.id)">Xoa</button>
                                 </td>
                             </tr>
 
@@ -81,5 +83,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script th:src="@{/angular/sanpham.js}"></script>
+
 </body>
 </html>

@@ -10,6 +10,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Builder
+@ToString
 public class userModel {
     private String tk, mk, jwt;
     private Boolean check;

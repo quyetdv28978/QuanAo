@@ -23,7 +23,7 @@ public class DanhMuc {
     private Date ngaytao;
     private Integer trangthai;
 
-    @ManyToMany
+    @ManyToMany(fetch =FetchType.LAZY)
     @JoinTable(name = "chitietdanhmuc",
             joinColumns = @JoinColumn(name = "iddm"),
             inverseJoinColumns = @JoinColumn(name = "idsp")

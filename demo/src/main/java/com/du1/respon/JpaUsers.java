@@ -10,4 +10,6 @@ public interface JpaUsers extends JpaRepository<users, Integer> {
 
     public users findByEmailAndMk(String email, String name);
     public users findByTk(String name);
+
+    public users findByEmail(String email);
 }

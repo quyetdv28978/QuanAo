@@ -1,9 +1,6 @@
 package com.du1.model.viewModel;
 import com.du1.model.entity.users;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +12,7 @@ import java.util.Collections;
 @AllArgsConstructor
 @Getter
 @ToString
+@Builder
 public class userDetail implements UserDetails{
 //    @ToString.Exclude
     private users users;

@@ -25,7 +25,8 @@ private jpaSanPham jpaSanPham;
 
     @GetMapping("/trang-chu")
     public String quanTri(Model model){
-        if (usersController.userDetail != null &&usersController.userDetail.getAuthorities().stream().toList().get(0).equals("ADMIN")) {
+        if (usersController.userDetail != null &&
+                usersController.userDetail.getAuthorities().stream().toList().get(0).equals("ROLE_ADMIN")) {
 
             return "admin/TrangChu.html";
         }
@@ -35,8 +36,10 @@ private jpaSanPham jpaSanPham;
 
     @GetMapping("/san-pham")
     public String sanPham(Model model){
-        if (usersController.userDetail != null && usersController.userDetail.getAuthorities().stream().toList().get(0).toString().equals("ADMIN")) {
+        if (usersController.userDetail != null
+                && usersController.userDetail.getAuthorities().stream().toList().get(0).toString().equals("ROLE_ADMIN")) {
             model.addAttribute("listSP", jpaSanPham.findAll());
+            model.addAttribute("users", usersController.jwtUser);
             return "admin/product/SanPham.html";
         }
         return "admin/error.html";
@@ -44,9 +47,8 @@ private jpaSanPham jpaSanPham;
 
     @GetMapping("/them-san-pham")
     public String addsanPham(Model model){
-        System.out.println(usersController.userDetail.getAuthorities());
-        System.out.println(usersController.userDetail.getAuthorities().stream().toList().get(0).toString() + " tren");
-        if (usersController.userDetail != null && usersController.userDetail.getAuthorities().stream().toList().get(0).toString().equals("ADMIN")) {
+        if (usersController.userDetail != null &&
+                usersController.userDetail.getAuthorities().stream().toList().get(0).toString().equals("ROLE_ADMIN")) {
             model.addAttribute("sanpham", new SanPham());
             return "admin/product/themSanPham.html";
         }
@@ -56,7 +58,8 @@ private jpaSanPham jpaSanPham;
 
     @GetMapping("/sua-san-pham")
     public String UDsanPham(Model model, @RequestParam Integer id){
-            if (usersController.userDetail != null && usersController.userDetail.getAuthorities().stream().toList().get(0).toString().equals("ADMIN")) {
+            if (usersController.userDetail != null &&
+                    usersController.userDetail.getAuthorities().stream().toList().get(0).toString().equals("ROLE_ADMIN")) {
                 model.addAttribute("id", id);
                 return "admin/product/SuaSanPham.html";
             }

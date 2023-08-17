@@ -1,6 +1,5 @@
 package com.du1.controller.APi.web;
 
-import com.du1.model.entity.donhang;
 import com.du1.model.viewModel.donhangViewModel;
 import com.du1.services.donhangSer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ public class donhangControllerApi {
 
     @PostMapping("donhang")
     public void donhang(@RequestBody donhangViewModel donhang){
-        System.out.println("sadfjhskajhfks");
-        System.out.println(donhang);
         donhangSer.add(donhang);
     }
 }

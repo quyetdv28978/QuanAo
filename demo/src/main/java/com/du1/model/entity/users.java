@@ -25,7 +25,7 @@ public class users {
     private String tk, mk, email, anh, diachi;
     private Date ngaytao, ngaysinh;
     private Integer tuoi, trangthai;
-    @OneToOne
+    @OneToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "vaitro")
     private vaitro vaitro;
 }

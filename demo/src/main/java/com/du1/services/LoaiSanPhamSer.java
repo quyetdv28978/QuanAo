@@ -5,6 +5,7 @@ import com.du1.respon.jpaLoaiSanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -19,16 +20,19 @@ public class LoaiSanPhamSer implements ServiceIF<loaisanpham>{
     }
 
     @Override
-    public int add(loaisanpham loaisanpham) {
+    @Transactional
+    public Integer add(loaisanpham loaisanpham) {
         return jpaLoaiSanPham.save(loaisanpham).getId();
     }
 
     @Override
+    @Transactional
     public int update(loaisanpham loaisanpham) {
         return 0;
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
     }
 

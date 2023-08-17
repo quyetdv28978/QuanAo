@@ -27,14 +27,7 @@
 
                         <h4 class="card-title">Danh sách danh muc sản phẩm</h4>
 
-                        Tìm kiếm: <input type="text" class="border-0 border-bottom" placeholder="Nhập tên danh mục">
-                        <select>
-                            <option value="null"></option>
-                            <option value="value1">quyet</option>
-                            <option value="value2">do</option>
-                            <option value="value3">van</option>
-
-                        </select>
+                        Tìm kiếm: <input type="text" ng-model="tkbyten.tendm" class="border-0 border-bottom" placeholder="Nhập tên danh mục">
                         </p>
 
                         <table class="table table-hover">
@@ -49,7 +42,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="danhmucSP in danhmucs">
+                            <tr ng-repeat="danhmucSP in danhmucs | filter:tkbyten">
                                 <td class="mx-5">
                                     {{danhmucSP.tendm}}</td>
                                 <td>{{danhmucSP.slsp}}</td>

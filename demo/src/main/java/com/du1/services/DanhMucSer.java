@@ -8,6 +8,7 @@ import com.du1.respon.jpaSanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -34,19 +35,22 @@ public class DanhMucSer implements ServiceIF<danhmucViewModel> {
     }
 
     @Override
-    public int add(danhmucViewModel danhMuc) {
+    @Transactional
+    public Integer add(danhmucViewModel danhMuc) {
 //        return jpaDanhMuc.save((DanhMuc) cd(danhMuc, true)).getId();
-        System.out.println((DanhMuc) cd(danhMuc, true));
         jpaDanhMuc.save((DanhMuc) cd(danhMuc, true));
         return 0;
     }
 
     @Override
+    @Transactional
     public int update(danhmucViewModel danhMuc) {
+        System.out.println((DanhMuc) cd(danhMuc, false) + " danhmuc cua");
             return jpaDanhMuc.save((DanhMuc) cd(danhMuc, false)).getId();
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
          jpaDanhMuc.delete(jpaDanhMuc.findById(Integer.valueOf(id)).get());
     }
@@ -62,18 +66,15 @@ public class DanhMucSer implements ServiceIF<danhmucViewModel> {
                     .trangthai(o.getTrangthai()).listSanPham(listSP).build();
         }
 if (o.getTendm() == null) {
-    System.out.println("iui");
     DanhMuc d = jpaDanhMuc.findById(o.getId()).get();
     o.getIdSP().forEach(i -> d.getListSanPham().remove(jpaSanPham.findByMa(i)));
-    o.getIdSP().forEach(i -> System.out.println(i));
     return d;
 }
-        System.out.println("asdlfjhasfhksahjfkjaskhflasjhgfkjs");
         DanhMuc d = jpaDanhMuc.findById(o.getId()).get();
         o.getIdSP().forEach(i -> d.getListSanPham().add(jpaSanPham.findByMa(i)));
         return DanhMuc.builder().id(d.getId()).ma(d.getMa()).ngaytao(d.getNgaytao())
-                .trangthai(d.getTrangthai()).listSanPham(d.getListSanPham())
-                .tendm(d.getTendm()).build()
+                .trangthai(o.getTrangthai()).listSanPham(d.getListSanPham())
+                .tendm(o.getTendm()).build()
                 ;
     }
 

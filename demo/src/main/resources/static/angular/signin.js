@@ -1,17 +1,12 @@
-let app = angular.module("nguyen",[])
-// var app = angular.module("signIp", [])
+let app = angular.module("nguyen", [])
+app.controller("dovan", function ($scope, $http) {
+    let endPoint = "http://localhost:6969/demov1/";
 
+    $scope.signIn = function () {
+        $http.post(endPoint + "api/loginJWT", $scope.user).then(
+            function (item) {
 
-    app.controller("dovan", function ($scope, $http){
-        console.log("quyetclick")
-    $scope.signIn = function(){
-        console.log("quyet click")
-        console.log($scope.user)
-        $http.post("http://localhost:6969/demov1/api/loginJWT", $scope.user).then(
-            function (item){
-                window.alert("Dang nhap thanh cong")
-                console.log(item)
             }
         )
-}
+    }
 })

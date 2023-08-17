@@ -57,8 +57,6 @@ public class jwtAuthenticationFilter extends OncePerRequestFilter {
         String bearerToken = request.getHeader("Authorization");
         // Kiểm tra xem header Authorization có chứa thông tin jwt không
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            System.out.println("00000000000000000000000000000000000000");
-            System.out.println(tokenProvider.validateToken(bearerToken.substring(7)));
             return bearerToken.substring(7);
         }
         return null;

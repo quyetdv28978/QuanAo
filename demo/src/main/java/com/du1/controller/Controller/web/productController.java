@@ -17,7 +17,7 @@ public class productController {
     HttpSession httpSession;
     @GetMapping("product")
     public String product(Model model){
-        model.addAttribute("users", usersController.userDetail);
+        model.addAttribute("users", usersController.jwtUser);
         return "web/product.html";
     }
 }

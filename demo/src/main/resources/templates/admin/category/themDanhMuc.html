@@ -35,13 +35,12 @@
                                     >
                                 </div>
 
-                                Tìm kiếm: <input type="text"  class="border-0 border-bottom" placeholder="Nhập tên sản phẩm">
+                                Tìm kiếm: <input type="text"  ng-model="tensp.tensanpham" class="border-0 border-bottom" placeholder="Nhập tên sản phẩm">
                                 <select>
                                     <option ng-repeat="danhmuc in danhmucs" value="{{danhmuc.tenlsp}}">{{danhmuc.tenlsp}}</option>
 
                                 </select>
                                 <!-- Phiên bản -->
-                                Chon tat ca  <input type="checkbox" value="">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -51,7 +50,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="product in products" class="{{product.ma}}"ng-click="selectSP(product.ma)">
+                                    <tr ng-repeat="product in products | filter: tensp" class="{{product.ma}}" ng-click="selectSP(product.ma)">
                                         <td  class="mx-5">
                                             {{product.tensanpham}}</td>
                                         <td> {{product.tensanpham}}</td>

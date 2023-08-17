@@ -20,8 +20,6 @@ public class SpringSecuritySer implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String tk) throws UsernameNotFoundException {
         users u = jpaUsers.findByTk(tk);
-        System.out.println(tk + " null? vai tro: " + u.getVaitro().getId());
-
         return new userDetail(u);
     }
 

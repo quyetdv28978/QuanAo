@@ -16,47 +16,50 @@ import java.util.Set;
 public class DanhMucControllerAPI {
 
     @Autowired
-     private DanhMucSer danhMucSer;
+    private DanhMucSer danhMucSer;
 
     @GetMapping("danhmuc")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<danhmucViewModel> getALl(){
+    public List<danhmucViewModel> getALl() {
         return danhMucSer.getAll();
     }
 
     @GetMapping("danhmuc/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public DanhMuc getDM(@PathVariable("id") int id){
-        System.out.println(" id cuar API + " + id);
+    public DanhMuc getDM(@PathVariable("id") int id) {
         return danhMucSer.finbyID(id);
     }
 
     @PostMapping("danhmuc")
     @PreAuthorize("hasRole('ADMIN')")
-    public void addDM(@RequestBody danhmucViewModel danhMuc){
+    public void addDM(@RequestBody danhmucViewModel danhMuc) {
         danhMucSer.add(danhMuc);
     }
 
     @PutMapping("danhmuc/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void addDM(@RequestBody(required = false) Set<String> sanphamChon
-            , @PathVariable Integer id){
-            danhmucViewModel d = danhmucViewModel.builder().id(id).idSP(sanphamChon).build();
-            danhMucSer.update(d);
+            , @PathVariable Integer id) {
+        danhmucViewModel d = danhmucViewModel.builder().id(id).idSP(sanphamChon).build();
+        danhMucSer.update(d);
 
     }
 
-    @PutMapping("api/danhmuc2/{id}")
+    @PutMapping("/danhmuc2/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void UpDM(@PathVariable Integer id,
-                      @RequestBody danhmucViewModel danhMuc
-    ){
-            danhmucViewModel d = danhmucViewModel.builder().id(id).tendm(danhMuc.getTendm()).idSP(danhMuc.getIdSP()).build();
-            danhMucSer.update(d);
+                     @RequestBody danhmucViewModel danhMuc
+    ) {
+        danhmucViewModel d = danhmucViewModel.builder().id(id).tendm(danhMuc.getTendm()).idSP(danhMuc.getIdSP()).build();
+
+        danhMucSer.update(d);
 
     }
 
 
-    @DeleteMapping("api/danhmuc/{id}")
-    public void deleteDM(@PathVariable Integer id){
-         danhMucSer.delete(id);
+    @DeleteMapping("/danhmuc/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteDM(@PathVariable Integer id) {
+        danhMucSer.delete(id);
     }
 }

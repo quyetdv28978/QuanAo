@@ -1,20 +1,31 @@
 package com.du1;
 
 //import com.du1.services.serviceSer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.du1.model.entity.Chitiethoadon;
+import com.du1.model.entity.Hoadon;
+import com.du1.model.entity.SanPham;
+import com.du1.respon.jpaHoadon;
+import com.du1.respon.jpaSanPham;
+import com.du1.respon.jpaChitiethoadon;
+import com.du1.respon.jpaThongKe;
+import com.du1.services.SanPhamSer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class DemoApplication extends SpringBootServletInitializer {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws ParseException {
       ApplicationContext context =  SpringApplication.run(DemoApplication.class, args);
     }
+
 
     //    @Autowired
 //    serviceSer userRepository;

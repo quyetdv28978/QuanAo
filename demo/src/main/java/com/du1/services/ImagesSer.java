@@ -5,6 +5,7 @@ import com.du1.respon.jpaImages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,20 +19,24 @@ public class ImagesSer implements ServiceIF<Images> {
     }
 
     @Override
-    public int add(Images images) {
+    @Transactional
+    public Integer add(Images images) {
         return this.images.save(images).getId();
     }
 
     @Override
+    @Transactional
     public int update(Images images) {
         return this.images.save(images).getId();
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
     }
 
     @Override
+    @Transactional
     public Object cd(Images o, boolean check) {
         return null;
     }

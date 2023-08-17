@@ -6,7 +6,7 @@ public interface ServiceIF<Q>{
 
     public List<Q> getAll();
 
-    public int add(Q q);
+    public Integer add(Q q);
 
     public int update(Q q);
 

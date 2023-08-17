@@ -35,15 +35,13 @@
                                         >
                                     </div>
 
-                                    Tìm kiếm: <input type="text"  class="border-0 border-bottom" placeholder="Nhập tên sản phẩm">
+                                    Tìm kiếm: <input type="text" ng-model="tensp.tensanpham" class="border-0 border-bottom" placeholder="Nhập tên sản phẩm">
                                     <select ng-model="select" ng-change="selectChange()" ng-init="select='spdm'">
-                                        <option value="spdm">Sản Phẩm</option>
-                                        <option value="allsp">Tất cả sản phẩm</option>
-                                        <option ng-repeat="danhmuc in danhmucs" value="{{danhmuc.tenlsp}}">{{danhmuc.tenlsp}}</option>
-
+                                        <option value="spdm">Sản Phẩm đã chọn</option>
+                                        <option value="allsp">Sản phẩm chưa chọn</option>
                                     </select>
                                     <!-- Phiên bản -->
-                                    Chon tat ca  <input type="checkbox" value="">
+                                    <br>
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
@@ -53,7 +51,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="product in products" class="{{product.ma}}"ng-click="selectSP(product.ma)">
+                                        <tr ng-repeat="product in products | filter: tensp" class="{{product.ma}}"ng-click="selectSP(product.ma)">
                                             <td  class="mx-5">
                                                 {{product.tensanpham}}</td>
                                             <td> {{product.tensanpham}}</td>
@@ -80,7 +78,7 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <button type="button" ng-click="themDM()"
-                                        class="btn btn-primary btn-block text-uppercase">Thêm danh mục</button>
+                                        class="btn btn-primary btn-block text-uppercase">Sửa danh mục</button>
                                 <button type="button" ng-click="XoaSanPham()"
                                         class="btn btn-primary btn-block text-uppercase" ng-if="select == 'spdm'">Xóa sản phẩm </button>
                             </div>

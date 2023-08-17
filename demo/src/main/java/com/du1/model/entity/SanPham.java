@@ -24,15 +24,20 @@ public class SanPham{
     private Integer soluong, trangthai;
     private Float trongluong,kichthuoc;
     private Float giaban, giagoc;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REMOVE, fetch =FetchType.LAZY)
     @JoinTable(name = "chitietanh",
             joinColumns = @JoinColumn(name = "idsp"),
             inverseJoinColumns = @JoinColumn(name = "idimage")
     )
     @ToString.Exclude
     private Set<Images> images;
-    @OneToOne
+
+    @OneToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "idlsp")
     @ToString.Exclude
     private loaisanpham loaisanpham;
+
+    @OneToMany(mappedBy = "sanpham", cascade = CascadeType.REMOVE, fetch =FetchType.LAZY)
+    @ToString.Exclude
+    private Set<Chitiethoadon> list_chitiethoadon;
 }

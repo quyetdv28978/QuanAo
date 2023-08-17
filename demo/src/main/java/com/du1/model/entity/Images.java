@@ -23,7 +23,7 @@ public class Images{
     private int id;
     private String anh;
     private Date ngaytao;
-    @ManyToMany(mappedBy = "images")
+    @ManyToMany(mappedBy = "images", fetch =FetchType.LAZY)
     @ToString.Exclude
     @FieldNameConstants.Exclude
     private Set<SanPham> sanphams;

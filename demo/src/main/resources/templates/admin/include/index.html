@@ -13,9 +13,9 @@
 <!--Header-->
 <div th:replace = "~{admin/include/header::header}"></div>
     <!-- content -->
-        <div id="a" class="col-sm-2 bg-primary" th:fragment = "index">
+        <div id="a" class="col-sm-2 col-md-2 col-lg-2 bg-primary" th:fragment = "index">
             <nav class="nav flex-column">
-                <a class="ms-3 nav-link active  text-warning" aria-current="page">Tổng quan</a>
+                <a class="nav-link ms-3 text-warning" th:href="@{/trang-chu}" tabindex="-1" aria-disabled="true">Dashboard</a>
                 <div class="nav-link">
                     <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown2" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,13 +23,19 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" th:href="@{/quan-tri/san-pham}">Danh sách sản phẩm</a></li>
-                        <li><a class="dropdown-item" th:href="@{/danh-muc}">Danh sách danh mục</a></li>
-                        <!-- <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>
                 </div>
+
+                <div class="nav-link">
+                    <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown2" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                       Danh mục
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/danh-muc}">Danh sách danh mục</a></li>
+                    </ul>
+                </div>
+
 <!--                <div class="nav-link">-->
 <!--                    <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown" role="button"-->
 <!--                       data-bs-toggle="dropdown" aria-expanded="false">-->

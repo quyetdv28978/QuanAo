@@ -21,11 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
 public class usersController {
     public static userDetail userDetail;
+    public static String jwtUser;
 
     @Autowired
     public serviceSer jpa2;
@@ -39,42 +42,80 @@ public class usersController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    HttpSession session;
+
+    @Autowired
+    HttpServletResponse req;
+
+    @Autowired
+    HttpServletRequest reqe;
+
     @GetMapping("/signup")
 
-    public String signUp(Model model){return "admin/acccount/signup.html";
+    public String signUp(Model model) {
+        return "admin/acccount/signup.html";
     }
 
     @GetMapping("/signin")
     public String signIn(Model model
-    ){
+    ) {
         model.addAttribute("user", new userModel());
+
+        if (session.getAttribute("errorLogin") != null) {
+            model.addAttribute("errorLogin2", 1);
+            session.removeAttribute("errorLogin");
+        }
+//        if (reqe.getCookies() != null) {
+//            Optional a = Arrays.stream(reqe.getCookies())
+//                    .filter(i -> !i.getName().equals("JSESSIONID"))
+//                    .map(i -> {
+//                        if (i.getName().equals("account")) {
+//                            return i.getValue();
+//                        }
+//                        return null;
+//                    }).findFirst();
+//            if (a.isPresent()) {
+//                userModel u = userModel.builder().tk(a.get().toString().substring(a.get().toString().indexOf(".") + 1, a.get().toString().length()))
+//                        .mk(a.get().toString().substring(0, a.get().toString().indexOf(".")))
+//                        .build();
+//                model.addAttribute("user", u);
+//            }
+//        }
         return "admin/acccount/signin.html";
     }
 
     @PostMapping("/signin")
-    public String signIN(Model model,@ModelAttribute userModel loginRequest){
-//        System.out.println(loginRequest.getTk());
-        String vaitro = serUser.finbyTK(loginRequest.getTk()).getVaitro().getTenchucvu();
-        // Xác thực thông tin người dùng Request lên
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getTk(),
-                        loginRequest.getMk()
-                )
-        );
+    public String signIN(Model model, @ModelAttribute userModel loginRequest) {
+        users user = serUser.finbyTK(loginRequest.getTk());
+        if (user != null) {
+            {
+                if (loginRequest.getCheck() != null) {
+                    req.addCookie(new Cookie("account", loginRequest.getMk() + "." + loginRequest.getTk()));
+                }
+                String vaitro = user.getVaitro().getTenchucvu();
+                // Xác thực thông tin người dùng Request lên
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                loginRequest.getTk(),
+                                loginRequest.getMk()
+                        )
+                );
 
-        // Nếu không xảy ra exception tức là thông tin hợp lệ
-        // Set thông tin authentication vào Security Context
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        // Trả về jwt cho người dùng.
-        userDetail = (com.du1.model.viewModel.userDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String jwt = jwtTokenProvider.generateToken(userDetail, userDetail.getAuthorities().stream().collect(Collectors.toList()).get(0).toString());
-        System.out.println(userDetail);
-        System.out.println(" cua loginJWT");
-        model.addAttribute("users", userModel.builder().tk(loginRequest.getTk()).jwt(jwt).role(userDetail.getAuthorities()).build());
-        if (vaitro.equalsIgnoreCase("chu")){
-            return "redirect:/quan-tri/san-pham";
+                // Nếu không xảy ra exception tức là thông tin hợp lệ
+                // Set thông tin authentication vào Security Context
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                // Trả về jwt cho người dùng.
+                userDetail = (com.du1.model.viewModel.userDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                jwtUser = jwtTokenProvider.generateToken(userDetail, userDetail.getAuthorities().stream().collect(Collectors.toList()).get(0).toString());
+                if (vaitro.equalsIgnoreCase("chu")) {
+                    return "redirect:/trang-chu";
+                }
+                return "redirect:/home";
+            }
+        } else {
+            session.setAttribute("errorLogin", 0);
+            return "redirect:/signin";
         }
-        return "redirect:/home";
     }
 }
