@@ -10,6 +10,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class ThongKeAPI {
     @Autowired
     private ThongkeSer jpaThongKe;

@@ -57,7 +57,7 @@ public class SanPhamControllerApi {
     @GetMapping("sanphamBySL/{id}")
 //    @PreAuthorize("hasRole('ADMIN')")
     public List getSPBySlSP(@PathVariable Integer id) {
-        System.out.println(id);
+//        System.out.println(id);
         return quantriSer.getAll(quantriSer.getAll2(4, id));
     }
 

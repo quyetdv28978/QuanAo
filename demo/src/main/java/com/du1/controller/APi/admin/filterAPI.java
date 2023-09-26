@@ -3,13 +3,11 @@ package com.du1.controller.APi.admin;
 import com.du1.services.filterSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class filterAPI {
     @Autowired
     private filterSer filterSer;

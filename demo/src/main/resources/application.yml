@@ -39,16 +39,16 @@ spring:
 
 
 
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            clientId: 930669903032-f8qmgumkqm8rrifcvil837a35dc90hn9.apps.googleusercontent.com
-            clientSecret: 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
-            redirect-uri: "https://5d69-2405-4803-a0be-9730-5ca4-6889-d1d0-1dd0.ngrok-free.app/demov1/login/oauth2/code/google"
-            scope:
-              - email
-              - profile
-
-
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            clientId: 930669903032-f8qmgumkqm8rrifcvil837a35dc90hn9.apps.googleusercontent.com
+#            clientSecret: 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
+#            redirect-uri: "https://5d69-2405-4803-a0be-9730-5ca4-6889-d1d0-1dd0.ngrok-free.app/demov1/login/oauth2/code/google"
+#            scope:
+#              - email
+#              - profile
+#
+#

@@ -3,12 +3,11 @@ package com.du1.services;
 import com.du1.model.entity.users;
 import com.du1.respon.JpaUsers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 
@@ -16,8 +15,8 @@ public class serviceSer implements ServiceIF<users> {
     @Autowired()
     private JpaUsers jpa;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -41,8 +40,8 @@ public class serviceSer implements ServiceIF<users> {
         } else if (!users.getDiachi().equals(users.getMk())) {
             check = 3;
         } else {
-            users.setMk(passwordEncoder.encode(users.getMk()));
-            check = jpa.save(users).getId();
+//            users.setMk(passwordEncoder.encode(users.getMk()));
+//            check = jpa.save(users).getId();
         }
         return check;
     }
