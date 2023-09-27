@@ -4,7 +4,6 @@ import com.du1.Exception.RestAuthenticationEntryPoint;
 import com.du1.controller.Controller.web.usersController;
 import com.du1.model.entity.users;
 import com.du1.model.viewModel.CustomOAuth2User;
-import com.du1.model.viewModel.userDetail;
 import com.du1.respon.JpaUsers;
 import com.du1.services.CustomOAuth2UserService;
 import com.du1.services.SpringSecuritySer;
@@ -22,25 +21,18 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity
 @EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
+         securedEnabled = true,
+         jsr250Enabled = true,
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
